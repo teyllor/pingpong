@@ -1,0 +1,86 @@
+<HTML>
+  <body>
+   <canvas id="folha" Width="1280" heigth="720"></canvas>
+
+   <script>
+      window.onload = function () {
+          setInterval(executar, 1000 / 30);
+    }
+    var posicaoBolaX = posicaoBolaY = 10 ;
+
+    function executar() {
+      var folhaDesenho = document.getElementById("folha") ;
+      var areaDesenho= folhaDesenho.getContext ("2d") ;
+
+      var larguraCampo = 1280 ;
+      var alturaCampo =  720 ;
+      var espessuraRede = 5 ;
+      var posicaojogador1 = posicaojogador2 = 40 ;
+      var pontuacaoJogador1 = pontuacaoJogador1 = 0;
+      var espessuraRaquete =  11 ;
+      var alturaRaquete = 100 ;
+      var diametroBola = 10 ;
+      var velocidadeBolaPosicaoX = velocidadeBolaPosicaoY = 1 ;
+
+      var efeitoRaquete = 0.3 ;
+
+      //desenho campo
+      areaDesenho.fillStyle = '#286047'
+      areaDesenho.fillRect(0, 0, larguraCampo, alturaCampo);
+      //desenho rede
+      areaDesenho.fillStyle = '#ffffff'
+      areaDesenho.fillRect(larguraCampo / 2 - espessuraRede / 2, 0, espessuraRede, alturaCampo) ;
+      //desenho bola
+      areaDesenho.fillRect(posicaoBolaX - diametroBola /2, posicaoBolaY - diametroBola /2, diametroBola, diametroBola) ;
+      //desenho raquete esquerda
+      areaDesenho.fillRect(0, posicaojogador1, espessuraRaquete, alturaRaquete);
+      //desenho raquete direita
+      areaDesenho.fillRect(larguraCampo - espessuraRede, posicaojogador2, espessuraRaquete, alturaRaquete);
+
+      posicaoBolaX = posicaoBolaX + velocidadeBolaPosicaoX;
+      posicaoBolaY = posicaoBolaY + velocidadeBolaPosicaoY;
+
+      if (posicaoBolaY < 0 && velocidadeBolaPosicaoY < 0) {
+          velocidadeBolaPosicaoY = -velocidadeBolaPosicaoY;
+      }
+       //verifica lateral inferior
+       if (velocidadeBolaPosicaoY > alturaCampo && velocidadeBolaPosicaoY > 0) {
+         velocidadeBolaPosicaoY = -velocidadeBolaPosicaoY;
+       }
+       // verificar se o jogador 2 fez ponto
+       if (posicaoBolaX < 0) {
+         if (posicaoBolaY > posicaojogador1 && posicaoBolaY < posicaojogador1 + alturaRaquete);
+          //rebater a bola
+          velocidadeBolaPosicaoX = - velocidadeBolaPosicaoX;
+
+          var diferencaY = posicaoBolaY - (posicaojogador1 + alturaRaquete/2);
+          velocidadeBolaPosicaoY = diferencaY * efeitoRaquete;
+        } else {
+          //pontos do jogador 2
+          pontuacaoJogador2 = pontuacaoJogador2 + 1;
+          //colocar bola no centro
+        }
+       }
+
+       //verifica se o jogador 1 fez ponto
+       if (posicaoBolaX > larguraCampo) {
+         if (posicaoBolaY > posicaojogador2 && posicaoBolaY < posicaojogador2 + alturaRaquete) {
+        // rebater a posicao
+        velocidadeBolaPosicaoX = -velocidadeBolaPosicaoX
+
+        var diferencaY = posicaoBolaY - (posicaojogador2 + alturaRaquete);
+          velocidadeBolaPosicaoY = diferencaY * efeitoRaquete
+        }  else {
+          //pontos do jogador
+        pontuacaoJogador1 = pontuacaoJogador1 + 1;
+        }
+
+       }
+
+   </script>
+  </body>
+
+</HTML>
+Run
+  git config --global user.email "teyllor.abreu@gmail.com"
+  git config --global user.name "teyllor"
